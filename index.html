@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>送给我亲爱的张萌</title>	    
+    <link type="text/css" rel="stylesheet" href="css/default.css">
+		
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jscex.min.js"></script>
+	<script type="text/javascript" src="js/jscex-parser.js"></script>
+	<script type="text/javascript" src="js/jscex-jit.js"></script>
+	<script type="text/javascript" src="js/jscex-builderbase.min.js"></script>
+	<script type="text/javascript" src="js/jscex-async.min.js"></script>
+	<script type="text/javascript" src="js/jscex-async-powerpack.min.js"></script>
+	<script type="text/javascript" src="js/functions.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/love.js" charset="utf-8"></script>
+	
+	<style type="text/css">
+		/*.STYLE1 {
+			color: #666666;
+		}*/
+	</style>
+</head>
+<body>
+	<!--===音乐：筑梦师======================================-->
+	<audio autoplay="autoplay">
+<source src="http://m10.music.126.net/20200212142349/2e9a59f3e3c0afb503430600579554bc/ymusic/3b9e/c8c4/090b/45b3fa6090b33b79fd425ba166540c32.mp3" type="audio/mpeg">
+</audio>
+
+
+	
+	<!--==============================================================-->
+	<div id="main">
+        <div id="error">
+        	抱歉！目前您的浏览器无法显示，请更新至最新版本或使用其他主流浏览器，谢谢合作。
+        </div>
+        <div id="wrap">
+            <div id="text">
+		        <div id="code">
+		      		<font color="#FF0000">  	
+		      			<span class="say">遇到你之前</span><br>
+		      			<span class="say">我安于定居于自己波澜不惊的内心</span><br>
+						<span class="say">就像是落日余晖青青草地上盖一座安静的小木屋</span><br>
+						<span class="say">纯粹而充实</span><br>
+						<span class="say">而遇见你之后</span><br>
+						<span class="say">故事才刚刚开始</span><br>
+						<span class="say">谁喜欢没有目的的四处漂泊呢</span><br>
+			        	<span class="say">我爱上的，是因为你而憧憬渴望的远方</span><br>
+						<span class="say">当心上的房子住进了人</span><br>
+						<span class="say">无论去哪里浪迹</span><br>
+						<span class="say">我的一生都是一场皈依</span><br>
+						<span class="say">而我头顶的天气，我的天性</span><br>
+						<span class="say">因为遇见你</span><br>
+						<span class="say">那这所有曾经设定好的一切</span><br>
+						<span class="say">都有了重头来过的契机</span><br>
+						<span class="say">青春是一场不需要夜晚就可以做的白日梦</span><br>
+						<span class="say">只要足够真诚足够英勇</span><br>
+						<span class="say">一个梦就可以走一生</span><br>
+						<span class="say"></span><br>
+                        <span class="say"><span class="space"></span>        -- 爱你的张先生--</span>
+			  		</font>
+			  		</p>
+      			</div>
+            </div>
+		    <div id="clock-box">
+		        <span class="STYLE1"></span>
+		        <font color="#33CC00">亲爱的张小姐，我喜欢你</font>
+				<span class="STYLE1">已经是……</span>
+		        <div id="clock"></div>
+		    </div>
+		    <canvas id="canvas" width="1100" height="680"></canvas>
+	    </div>
+            
+    </div>
+    
+
+	<!--==========================================================-->
+    <script>
+	    (function(){
+	        var canvas = $('#canvas');
+	        if (!canvas[0].getContext) {
+	            $("#error").show();
+	            return false;       
+	        }
+	
+	        var width = canvas.width();
+	        var height = canvas.height();        
+	        canvas.attr("width", width);
+	        canvas.attr("height", height);
+	        var opts = {
+	            seed: {
+	                x: width / 2 - 20,
+	                color: "rgb(190, 26, 37)",
+	                scale: 2
+	            },
+	            branch: [
+	                [535, 680, 570, 250, 500, 200, 30, 100, [
+	                    [540, 500, 455, 417, 340, 400, 13, 100, [
+	                        [450, 435, 434, 430, 394, 395, 2, 40]
+	                    ]],
+	                    [550, 445, 600, 356, 680, 345, 12, 100, [
+	                        [578, 400, 648, 409, 661, 426, 3, 80]
+	                    ]],
+	                    [539, 281, 537, 248, 534, 217, 3, 40],
+	                    [546, 397, 413, 247, 328, 244, 9, 80, [
+	                        [427, 286, 383, 253, 371, 205, 2, 40],
+	                        [498, 345, 435, 315, 395, 330, 4, 60]
+	                    ]],
+	                    [546, 357, 608, 252, 678, 221, 6, 100, [
+	                        [590, 293, 646, 277, 648, 271, 2, 80]
+	                    ]]
+	                ]] 
+	            ],
+	            bloom: {
+	                num: 700,
+	                width: 1080,
+	                height: 650,
+	            },
+	            footer: {
+	                width: 1200,
+	                height: 5,
+	                speed: 10,
+	            }
+	        }
+	
+	        var tree = new Tree(canvas[0], width, height, opts);
+	        var seed = tree.seed;
+	        var foot = tree.footer;
+	        var hold = 1;
+	
+	        canvas.click(function(e) {
+	            var offset = canvas.offset(), x, y;
+	            x = e.pageX - offset.left;
+	            y = e.pageY - offset.top;
+	            if (seed.hover(x, y)) {
+	                hold = 0; 
+	                canvas.unbind("click");
+	                canvas.unbind("mousemove");
+	                canvas.removeClass('hand');
+	            }
+	        }).mousemove(function(e){
+	            var offset = canvas.offset(), x, y;
+	            x = e.pageX - offset.left;
+	            y = e.pageY - offset.top;
+	            canvas.toggleClass('hand', seed.hover(x, y));
+	        });
+	
+	        var seedAnimate = eval(Jscex.compile("async", function () {
+	            seed.draw();
+	            while (hold) {
+	                $await(Jscex.Async.sleep(10));
+	            }
+	            while (seed.canScale()) {
+	                seed.scale(0.95);
+	                $await(Jscex.Async.sleep(10));
+	            }
+	            while (seed.canMove()) {
+	                seed.move(0, 2);
+	                foot.draw();
+	                $await(Jscex.Async.sleep(10));
+	            }
+	        }));
+	
+	        var growAnimate = eval(Jscex.compile("async", function () {
+	            do {
+	    	        tree.grow();
+	                $await(Jscex.Async.sleep(10));
+	            } while (tree.canGrow());
+	        }));
+	
+	        var flowAnimate = eval(Jscex.compile("async", function () {
+	            do {
+	    	        tree.flower(2);
+	                $await(Jscex.Async.sleep(10));
+	            } while (tree.canFlower());
+	        }));
+	
+	        var moveAnimate = eval(Jscex.compile("async", function () {
+	            tree.snapshot("p1", 240, 0, 610, 680);
+	            while (tree.move("p1", 500, 0)) {
+	                foot.draw();
+	                $await(Jscex.Async.sleep(10));
+	            }
+	            foot.draw();
+	            tree.snapshot("p2", 500, 0, 610, 680);
+	
+	            // 会有闪烁不得意这样做
+	            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+	            canvas.css("background", "#ffe");
+	            $await(Jscex.Async.sleep(300));
+	            canvas.css("background", "none");
+	        }));
+	
+	        var jumpAnimate = eval(Jscex.compile("async", function () {
+	            var ctx = tree.ctx;
+	            while (true) {
+	                tree.ctx.clearRect(0, 0, width, height);
+	                tree.jump();
+	                foot.draw();
+	                $await(Jscex.Async.sleep(25));
+	            }
+	        }));
+	
+	        var textAnimate = eval(Jscex.compile("async", function () {
+			    var together = new Date();
+			    together.setFullYear(2019,11,14); 			//时间年月日
+			    together.setHours(22);						//小时	
+			    together.setMinutes(09);					//分钟
+			    together.setSeconds(0);					//秒前一位
+			    together.setMilliseconds(0);				//秒第二位
+	
+			    $("#code").show().typewriter();
+	            $("#clock-box").fadeIn(500);
+	            while (true) {
+	                timeElapse(together);
+	                $await(Jscex.Async.sleep(1000));
+	            }
+	        }));
+	
+	        var runAsync = eval(Jscex.compile("async", function () {
+	            $await(seedAnimate());
+	            $await(growAnimate());
+	            $await(flowAnimate());
+	            $await(moveAnimate());
+	
+	            textAnimate().start();
+	
+	            $await(jumpAnimate());
+	        }));
+	
+	        runAsync().start();
+	    })();
+	    
+    </script>
+    
+    
+    
+    
+    
+	<!--=======附属说明====================================================-->
+	<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+		<p>
+			          一季花开，遇到爱，便是圆满：一次回眸，遇到你，便是幸福。
+		</p>
+	</div>
+	
+	
+
+	
+	
+	
+	
+	
+</body>
+</html>
